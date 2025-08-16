@@ -423,7 +423,7 @@ async def duel(interaction: discord.Interaction, montant: int):
     # La vue est créée, mais sans l'ID de message pour l'instant
     view = RejoindreView(message_id=None, joueur1=interaction.user, montant=montant)
     
-    role_membre = discord.utils.get(interaction.guild.roles, name="membre")
+    role_membre = discord.utils.get(interaction.guild.roles, name="sleeping")
     contenu_ping = f"{role_membre.mention} — Un nouveau duel est prêt ! Un joueur est attendu." if role_membre else ""
     
     # On envoie le message et on attend la réponse pour récupérer son ID
@@ -494,7 +494,7 @@ async def quit_duel(interaction: discord.Interaction):
         new_embed.add_field(name="Status", value="🕓 En attente d'un second joueur.", inline=False)
         new_embed.set_footer(text="Cliquez sur le bouton pour rejoindre le duel.")
 
-        role_membre = discord.utils.get(interaction.guild.roles, name="membre")
+        role_membre = discord.utils.get(interaction.guild.roles, name="sleeping")
         contenu_ping = f"{role_membre.mention} — Un nouveau duel est prêt ! Un joueur est attendu." if role_membre else ""
         
         await message_initial.edit(content=contenu_ping, embed=new_embed, view=new_view, allowed_mentions=discord.AllowedMentions(roles=True))
