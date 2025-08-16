@@ -391,7 +391,7 @@ class StatsView(discord.ui.View):
 
 
 # --- Commandes du bot ---
-@bot.tree.command(name="duel", description="Lancer un duel de morpion avec un montant.")
+@bot.tree.command(name="sleeping", description="Lancer un duel de morpion avec un montant.")
 @app_commands.describe(montant="Montant misé en kamas")
 async def duel(interaction: discord.Interaction, montant: int):
     if not isinstance(interaction.channel, discord.TextChannel) or interaction.channel.name != "morpion":
