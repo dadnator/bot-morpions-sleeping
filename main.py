@@ -167,10 +167,10 @@ class TicTacToeView(discord.ui.View):
             gagnant_id = None
         else:
             montant = self.duel_data["montant"]
-            gain_net = int(montant * 2 * (1 - COMMISSION))
+            gain_net = int(montant * 2 )
             title = f"🎉 Victoire de {winner.display_name} !"
             description = (
-                f"{winner.mention} remporte le duel et gagne :\n**{gain_net:,}** kamas\n(après 5% de commission).\n\n"
+                f"{winner.mention} remporte le duel et gagne :\n**{gain_net:,}** kamas\n.\n\n"
                 f"Félicitations !"
             ).replace(",", " ")
             color = discord.Color.green()
@@ -520,7 +520,7 @@ async def statsall(interaction: discord.Interaction):
     c.execute("""
     SELECT joueur_id,
            SUM(montant) as kamas_mises,
-           SUM(CASE WHEN gagnant_id = joueur_id THEN montant * 2 * 0.95 ELSE 0 END) as kamas_gagnes,
+           SUM(CASE WHEN gagnant_id = joueur_id THEN montant * 2 ELSE 0 END) as kamas_gagnes,
            SUM(CASE WHEN gagnant_id = joueur_id THEN 1 ELSE 0 END) as victoires,
            SUM(CASE WHEN est_nul = 1 THEN 1 ELSE 0 END) as nuls,
            SUM(CASE WHEN gagnant_id != joueur_id AND est_nul = 0 THEN 1 ELSE 0 END) as defaites,
@@ -553,7 +553,7 @@ async def mystats(interaction: discord.Interaction):
     c.execute("""
     SELECT joueur_id,
            SUM(montant) as kamas_mises,
-           SUM(CASE WHEN gagnant_id = joueur_id THEN montant * 2 * 0.95 ELSE 0 END) as kamas_gagnes,
+           SUM(CASE WHEN gagnant_id = joueur_id THEN montant * 2 ELSE 0 END) as kamas_gagnes,
            SUM(CASE WHEN est_nul = 1 THEN 1 ELSE 0 END) as nuls,
            SUM(CASE WHEN gagnant_id != joueur_id AND est_nul = 0 THEN 1 ELSE 0 END) as defaites,
            COUNT(*) as total_parties
